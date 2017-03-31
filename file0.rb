@@ -6,6 +6,8 @@ require 'securerandom'
 require 'base64'
 require 'json'
 
+require_relative './config.rb'
+
 $redis = Redis.new
 class File0 < Sinatra::Base
 
@@ -36,13 +38,14 @@ class File0 < Sinatra::Base
 
   def create_file(file,filetype)
     # Early returns for bad shit
-    return nil if file.size > 10000000
+    return nil if file.size > @@max_filesize
     # Identify filetype
     return nil unless is_valid?(file,filetype)
     # Store in redis as json {'type':'file/whatever', 'data':'base64'}
     filename = SecureRandom.hex(6)+File.extname(file.path)
     payload = {filetype: filetype, data: Base64.encode64(file.read).gsub("\n","")}
     $redis.set(filename,payload.to_json)
+    $redis.expire(filename,@@lifetime)
     filename
   end
 
