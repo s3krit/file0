@@ -18,6 +18,7 @@ class File0 < Sinatra::Base
   post '/upload' do
     # Send shit to create_file
     file = params['file']
+    return "No file selected" unless file
     uploaded_file = create_file(file[:tempfile],file[:type])
     # Redirect to uploaded file if we get a url, else die?
     return "Oops! Something went wrong" unless uploaded_file
