@@ -12,16 +12,17 @@ $redis = Redis.new
 class File0 < Sinatra::Base
 
   get '/' do
-    erb :index
+    @pagetype = :form
+    erb :base
   end
 
   post '/upload' do
     # Send shit to create_file
     file = params['file']
-    return "No file selected" unless file
+    return render_generic("No file selected","Helps if you select a file, mate") unless file
     uploaded_file = create_file(file[:tempfile],file[:type])
     # Redirect to uploaded file if we get a url, else die?
-    return "Oops! Something went wrong" unless uploaded_file
+    return render_generic("Oops!","Something went wrong") unless uploaded_file
     redirect to uploaded_file
   end
 
@@ -29,9 +30,21 @@ class File0 < Sinatra::Base
     retrieve_file(params['captures'].first)
   end
 
+  not_found do
+    status 404
+    @lifetime = @@lifetime
+    @pagetype = :fourohfour
+    return erb :base
+  end
+
   def retrieve_file(path)
     file = $redis.get(path)
-    return "404" unless file
+    unless file
+      status 404
+      @lifetime = @@lifetime # Gross...
+      @pagetype = :fourohfour
+      return erb :base
+    end
     parsed_file = JSON.parse(file)
     content_type parsed_file['filetype']
     return Base64.decode64(parsed_file['data'])
@@ -60,5 +73,12 @@ class File0 < Sinatra::Base
     return false unless valid_extensions.include?(extension)
     return false unless valid_mimes.include?(filetype)
     return true    
+  end
+
+  def render_generic(title="", body="")
+    @title = title
+    @body = body
+    @pagetype = :generic
+    return erb :base
   end
 end
