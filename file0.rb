@@ -23,7 +23,7 @@ class File0 < Sinatra::Base
     uploaded_file = create_file(file[:tempfile],file[:type])
     # Redirect to uploaded file if we get a url, else die?
     return render_generic("Oops!","Something went wrong") unless uploaded_file
-    redirect to uploaded_file
+    render_generic("File uploaded","Take your file mate, it won't be here forever. <a href=#{uploaded_file}>https://#{request.host+"/"+uploaded_file}</a>")
   end
 
   get (/^\/([\w]{12}\.[\w]+)$/) do
