@@ -42,7 +42,7 @@ class File0 < Sinatra::Base
     render_generic("File uploaded","Take your file mate, it won't be here forever. <a href=#{uploaded_file}>https://#{request.host+"/"+uploaded_file}</a>")
   end
 
-  get (/^\/([\w]{12}\.[\w]+)$/) do
+  get (/^\/([\w]{12}(?:|\.[\w]+))$/) do
     retrieve_file(params['captures'].first)
   end
 
@@ -71,6 +71,9 @@ class File0 < Sinatra::Base
     return nil if file.size > @@max_filesize
     # Identify filetype
     return nil unless is_valid?(file,filetype)
+
+    # If it's an application/octet-stream, let's host it as plaintext
+    filetype = 'text/plain' if filetype == 'application/octet-stream'
     # Store in redis as json {'type':'file/whatever', 'data':'base64'}
     filename = SecureRandom.hex(6)+File.extname(file.path)
     payload = {filetype: filetype, data: Base64.encode64(file.read).gsub("\n","")}
@@ -83,10 +86,9 @@ class File0 < Sinatra::Base
     # Is checking extension even worth it?
     valid_extensions = %w(.png .jpg .jpeg .txt .gif)
     extension = File.extname(file.path)
+    valid_mimes = %w{image/jpeg image/png image/gif text/plain application/octet-stream}
 
-    valid_mimes = %w{image/jpeg image/png image/gif text/plain}
-
-    return false unless valid_extensions.include?(extension)
+    return false unless valid_extensions.include?(extension) or extension.empty?
     return false unless valid_mimes.include?(filetype)
     return true    
   end
