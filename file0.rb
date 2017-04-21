@@ -85,7 +85,7 @@ class File0 < Sinatra::Base
   def is_valid?(file,filetype)
     # Is checking extension even worth it?
     valid_extensions = %w(.png .jpg .jpeg .txt .gif)
-    extension = File.extname(file.path)
+    extension = File.extname(file.path).downcase
     valid_mimes = %w{image/jpeg image/png image/gif text/plain application/octet-stream}
 
     return false unless valid_extensions.include?(extension) or extension.empty?
