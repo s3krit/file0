@@ -1,6 +1,6 @@
 ENV['RACK_ENV'] = 'test'
 
-require_relative '../file0.rb'
+require_relative '../app.rb'
 require 'test/unit'
 require 'rack/test'
 require 'redis'
