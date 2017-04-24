@@ -1,6 +1,8 @@
 File0
 =====
 
+[![Build Status](https://travis-ci.org/s3krit/file0.svg?branch=master)](https://travis-ci.org/s3krit/file0)
+
 File0 is a temporary file storage application, written in Sinatra for Ruby. It
 stores files in Redis and sets a finite `EXPIRY` on them (default is 12 hours).
 Depending on your configuration of Redis, this means it's possible for files to
