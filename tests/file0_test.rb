@@ -51,4 +51,9 @@ class File0Test < Test::Unit::TestCase
     get '/bbbbbbbbbbbb.jpg'
     assert_equal 404,last_response.status
   end
+
+  def test_it_throws_error_on_uploading_no_file
+    post '/upload'
+    assert_equal 400,last_response.status
+  end
 end
