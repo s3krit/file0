@@ -41,8 +41,21 @@ Haha, it's all manual! I've included a unicorn.rb file if you want to run it
 that way. By default, it'll run it in a file socket that you can then point a
 real webserver (like NGINX) at.
 
-Don't worry, one day this will all be dockerized and docker composed. I
-promise. I wouldn't lie to you.
+You've got a couple of options. Included is a basic unicorn.rb example
+configuration file if you want to do things that way. Requires configuring your
+webserver to point at the file socket, and everything should work.
+
+However, because it's $CURRENT_YEAR, it also supports being deployed with
+docker-compose. To run file0 with docker-compose, simply run the following
+commands:
+
+```
+docker-compose build
+docker-compose up
+```
+
+This will start the service in rackup on forwarded port 9292. To allow external
+access, you will need to configure your webserver to proxy traffic to there.
 
 Notes
 -----

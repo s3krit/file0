@@ -1,0 +1,17 @@
+version: '3'
+services:
+  web:
+    build: .
+    ports:
+      - "9292:9292"
+    volumes:
+      - .:/app
+    links:
+      - redis
+  redis:
+    image: redis
+    command: redis-server /etc/redis/redis.conf
+    volumes:
+      - ./redis.conf:/etc/redis/redis.conf
+    expose:
+      - 6379

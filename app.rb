@@ -24,7 +24,8 @@ Bundler.require
 Dir['./app/*.rb'].each {|f| require f}
 Dir['./app/routes/*.rb'].each {|f| require f}
 
-$redis = Redis.new
+redis_host = ENV['REDIS_PORT_6379_TCP_ADDR'] || 'redis'
+$redis = Redis.new(:host => redis_host)
 
 class File0 < Sinatra::Base
   not_found do
