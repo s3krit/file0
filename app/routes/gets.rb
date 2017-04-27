@@ -1,3 +1,4 @@
+require_relative './base.rb'
 module File0
   module Routes
     class Gets < Base
