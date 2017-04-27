@@ -11,7 +11,7 @@ class File0Test < Test::Unit::TestCase
   $redis = Redis.new
 
   def app
-    File0.new
+    File0::App.new
   end
 
   # Page loading
