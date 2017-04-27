@@ -18,27 +18,34 @@ require 'bundler'
 require 'securerandom'
 require 'base64'
 require 'json'
+require 'pry'
 
 Bundler.require
 
 Dir['./app/*.rb'].each {|f| require f}
 Dir['./app/routes/*.rb'].each {|f| require f}
+Dir['./app/models/*.rb'].each {|f| require f}
 
-redis_host = ENV['REDIS_PORT_6379_TCP_ADDR'] || 'redis'
-$redis = Redis.new(:host => redis_host)
 
-class File0 < Sinatra::Base
-  not_found do
-    status 404
-    @lifetime = @@lifetime
-    @pagetype = :fourohfour
-    return erb :base
-  end
+module File0
+  class App < Sinatra::Base
+    set :views, ::File.dirname(__FILE__) + '/app/views'
+    set :public_folder, ::File.dirname(__FILE__) + '/app/public'
 
-  def render_generic(title="", body="")
-    @title = title
-    @body = body
-    @pagetype = :generic
-    return erb :base
+    redis_host = ENV['REDIS_PORT_6379_TCP_ADDR'] || 'localhost'
+    set :redis, Redis.new(:host => redis_host)
+    attr_accessor :redis
+
+    not_found do
+      status 404
+      @lifetime = Config.lifetime
+      @pagetype = :fourohfour
+      return erb :base
+    end
+
+    configure do
+      use Routes::Gets
+      use Routes::Posts
+    end
   end
 end
