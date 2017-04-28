@@ -63,5 +63,3 @@ Notes
 I don't know for a fact that the `TempFile` objects provided by Sinatra don't
 hit the disk. It's pretty important I find this out cause otherwise, one of the
 main draws of it is moot.
-
-It also needs to self-host bootstrap, jquery, etc.
