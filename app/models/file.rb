@@ -21,7 +21,7 @@ module File0
       filename = SecureRandom.hex(6)+::File.extname(file.path)
       payload = {filetype: filetype, data: Base64.encode64(file.read).gsub("\n","")}
       redis.set(filename,payload.to_json)
-      redis.expire(filename,File0::Config.max_filesize)
+      redis.expire(filename,File0::Config.lifetime)
       filename
     end
 
