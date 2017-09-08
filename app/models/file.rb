@@ -8,6 +8,11 @@ module File0
       return JSON.parse(file)
     end
 
+    def self.ttl(path)
+      redis = File0::App.redis
+      redis.ttl(path)
+    end
+
     def self.get_all
       redis = File0::App.redis
       file_list = redis.keys
