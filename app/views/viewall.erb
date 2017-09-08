@@ -1,0 +1,14 @@
+<table class="table-responsive table-bordered">
+  <tr><td>Filename</td><td>Size</td><td>Preview</td></tr>
+<%
+    File0::File.get_all.each do |file|
+%>
+  <tr>
+    <td><a href="/<%= file['filename']%>"> <%= file['filename'] %></a></td>
+    <td> <%= File0::File.size(file["filename"]) %> </td>
+    <td> thumbnail goes here </td>
+  </tr>
+<%
+  end
+%>
+</table>
