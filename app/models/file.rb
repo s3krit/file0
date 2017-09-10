@@ -1,3 +1,4 @@
+require 'pry'
 module File0
   class File
     def self.get(path)
@@ -5,6 +6,29 @@ module File0
       file = redis.get(path)
       return nil unless file
       return JSON.parse(file)
+    end
+
+    def self.ttl(path)
+      redis = File0::App.redis
+      redis.ttl(path)
+    end
+
+    def self.get_all
+      redis = File0::App.redis
+      file_list = redis.keys
+      files = []
+      file_list.each do |filename|
+        file = File0::File.get(filename)
+        file['filename'] = filename
+        files.push(file)
+      end
+      files
+    end
+
+    def self.size(path)
+      file = get(path)
+      data = Base64.decode64(file['data'])
+      data.size
     end
 
     def self.create(file,filetype)
