@@ -60,6 +60,7 @@ access, you will need to configure your webserver to proxy traffic to there.
 Notes
 -----
 
-I don't know for a fact that the `TempFile` objects provided by Sinatra don't
-hit the disk. It's pretty important I find this out cause otherwise, one of the
-main draws of it is moot.
+`TempFile` objects in Ruby get written to `/tmp`. In order to guarantee that
+these files don't hit the disk, you'll need to make sure it's a proper `tmpfs`
+(and probably disable swapping) or have it mounted as a RAM disk. As for Docker,
+I've no idea how it handles `tmpfs` by default.
