@@ -28,7 +28,7 @@ sudo systemctl start redis-server
 brew install redis
 
 # For everything else
-I don't know, read your goddamn docs
+I don't know, please read your docs
 ```
 
 In order to start the server, run the command `rackup`. This will start a
