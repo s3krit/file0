@@ -8,6 +8,14 @@ module File0
       return JSON.parse(file)
     end
 
+    def self.delete(path)
+      redis = File0::App.redis
+      file = redis.get(path)
+      return nil unless file
+      redis.del(path)
+      return true
+    end
+
     def self.ttl(path)
       redis = File0::App.redis
       redis.ttl(path)
