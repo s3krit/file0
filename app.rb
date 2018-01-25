@@ -37,6 +37,10 @@ module File0
     set :redis, Redis.new(:host => redis_host)
     attr_accessor :redis
 
+    configure do
+      set :mustermann_opts, { :type=>:regexp, :check_anchors=>false }
+    end
+
     before do
       session[:key] ||= SecureRandom.hex(32)
     end
