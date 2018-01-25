@@ -14,7 +14,7 @@ module File0
           status 400
           return render_generic("No file selected","Helps if you select a file, mate")
         end
-        uploaded_file = File0::File.create(file[:tempfile],file[:type])
+        uploaded_file = File0::File.create(file[:tempfile],file[:type], session[:key])
         # Redirect to uploaded file if we get a url, else die?
         unless uploaded_file
           #status 400

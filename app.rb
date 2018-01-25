@@ -29,12 +29,17 @@ Dir['./app/models/*.rb'].each {|f| require f}
 
 module File0
   class App < Sinatra::Base
+    enable :sessions
     set :views, ::File.dirname(__FILE__) + '/app/views'
     set :public_folder, ::File.dirname(__FILE__) + '/app/public'
 
     redis_host = ENV['REDIS_PORT_6379_TCP_ADDR'] || 'localhost'
     set :redis, Redis.new(:host => redis_host)
     attr_accessor :redis
+
+    before do
+      session[:key] ||= SecureRandom.hex(32)
+    end
 
     not_found do
       status 404

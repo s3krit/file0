@@ -8,11 +8,16 @@ module File0
       return JSON.parse(file)
     end
 
-    def self.delete(path)
+    def self.delete(path,session_key = nil)
       redis = File0::App.redis
       file = redis.get(path)
       return nil unless file
-      redis.del(path)
+      parsed = JSON.parse(file)
+      if session_key == parsed['session_key']
+        redis.del(path)
+      else
+        return nil
+      end
       return true
     end
 
@@ -39,7 +44,7 @@ module File0
       data.size
     end
 
-    def self.create(file,filetype)
+    def self.create(file,filetype,session_key = nil)
       redis = File0::App.redis
 
       # Early returns for bad shit
@@ -51,7 +56,7 @@ module File0
       filetype = 'text/plain' if filetype == 'application/octet-stream'
       # Store in redis as json {'type':'file/whatever', 'data':'base64'}
       filename = SecureRandom.hex(6)+::File.extname(file.path)
-      payload = {filetype: filetype, data: Base64.encode64(file.read).gsub("\n","")}
+      payload = {filetype: filetype, data: Base64.encode64(file.read).gsub("\n",""), session_key: session_key}
       redis.set(filename,payload.to_json)
       redis.expire(filename,File0::Config.lifetime)
       filename
