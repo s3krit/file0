@@ -8,6 +8,8 @@ services:
       - .:/app
     links:
       - redis
+    depends_on:
+      - redis
   redis:
     image: redis
     command: redis-server /etc/redis/redis.conf
