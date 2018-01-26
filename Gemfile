@@ -3,6 +3,7 @@ gem 'sinatra'
 gem 'redis'
 gem 'rack'
 gem 'unicorn'
+gem 'mini_magick'
 
 group :development do
   gem 'pry' 

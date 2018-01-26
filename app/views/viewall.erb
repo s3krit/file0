@@ -6,7 +6,11 @@
   <tr>
     <td><a href="/<%= file['filename']%>"> <%= file['filename'] %></a></td>
     <td> <%= File0::File.size(file["filename"]) %> </td>
-    <td> thumbnail goes here </td>
+    <td>
+      <% if file['thumbnail'] %>
+        <img src="data:<%=file['filetype'] + ';base64, ' + file['thumbnail']%>" />
+      <% end %>
+  </td>
     <td> <%= Time.now + File0::File.ttl(file["filename"]) %></td>
   </tr>
 <%

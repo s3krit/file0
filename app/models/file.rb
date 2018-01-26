@@ -54,12 +54,27 @@ module File0
 
       # If it's an application/octet-stream, let's host it as plaintext
       filetype = 'text/plain' if filetype == 'application/octet-stream'
+      image_data = file.read
+      if is_image?(filetype)
+        thumbnail_data = create_thumbnail(image_data)
+      end
       # Store in redis as json {'type':'file/whatever', 'data':'base64'}
       filename = SecureRandom.hex(6)+::File.extname(file.path)
-      payload = {filetype: filetype, data: Base64.encode64(file.read).gsub("\n",""), session_key: session_key}
+      payload = {
+        filetype: filetype,
+        data: Base64.encode64(image_data).gsub("\n",""),
+        session_key: session_key,
+        thumbnail: thumbnail_data || nil
+      }
       redis.set(filename,payload.to_json)
       redis.expire(filename,File0::Config.lifetime)
       filename
+    end
+
+    def self.create_thumbnail(image_data,dimensions = '200x200')
+      image = MiniMagick::Image.read(image_data)
+      image.resize(dimensions)
+      Base64.encode64(image.to_blob).gsub("\n","")
     end
 
     def self.is_valid_file?(file,filetype)
@@ -70,6 +85,15 @@ module File0
       return false if bad_extensions.include?(extension)
       return false if bad_mimes.include?(filetype)
       return true    
+    end
+
+    def self.is_image?(filetype)
+      whitelist = [
+        'image/jpeg',
+        'image/png',
+        'image/gif'
+      ]
+      whitelist.include?(filetype)
     end
   end
 end
