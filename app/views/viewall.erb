@@ -7,7 +7,7 @@
     <td><a href="/<%= file['filename']%>"> <%= file['filename'] %></a></td>
     <td> <%= File0::File.size(file["filename"]) %> </td>
     <td> thumbnail goes here </td>
-    <td> <%= File0::File.ttl(file["filename"]) %></td>
+    <td> <%= Time.now + File0::File.ttl(file["filename"]) %></td>
   </tr>
 <%
   end

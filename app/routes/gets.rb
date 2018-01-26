@@ -17,7 +17,8 @@ module File0
         erb :base
       end
 
-      get (/\/([\w]{12}(?:|\.[\w]+))$/) do
+
+      get (/\/([\w]{12}(?:|\.[\w]+))$/), :mustermann_opts => { :check_anchors => false } do
         path = params['captures'].first
         file = File0::File.get(path)
         unless file
