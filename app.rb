@@ -20,6 +20,7 @@ require 'base64'
 require 'json'
 require 'pry'
 require 'mini_magick'
+require 'filesize'
 
 Bundler.require
 

@@ -4,6 +4,7 @@ gem 'redis'
 gem 'rack'
 gem 'unicorn'
 gem 'mini_magick'
+gem 'filesize'
 
 group :development do
   gem 'pry' 
