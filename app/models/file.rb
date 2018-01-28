@@ -57,6 +57,7 @@ module File0
       image_data = file.read
       if is_image?(filetype)
         thumbnail_data = create_thumbnail(image_data)
+        image_data = strip(image_data)
       end
       # Store in redis as json {'type':'file/whatever', 'data':'base64'}
       filename = SecureRandom.hex(6)+::File.extname(file.path)
@@ -75,6 +76,12 @@ module File0
       image = MiniMagick::Image.read(image_data)
       image.resize(dimensions)
       Base64.encode64(image.to_blob).gsub("\n","")
+    end
+
+    def self.strip(image_data)
+      image = MiniMagick::Image.read(image_data)
+      image.strip
+      image_data = image.to_blob
     end
 
     def self.is_valid_file?(file,filetype)
