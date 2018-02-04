@@ -1,0 +1,20 @@
+<script src="/js/uploaded.js"></script>
+<% if @file_urls.size == 1 %>
+  <p>Take your file, mate. It won't be here forever</p>
+<% else %>
+  <p> Take your files, mate. They won't be here forever</p>
+<% end %>
+
+<ul>
+  <% @file_urls.each do |url| %>
+    <li><a href="/<%= url%>"><%= @host_string + "/" + url%></a> </li>
+  <% end %>
+</ul>
+
+<% 
+    @file_urls.map!{|x| @host_string + "/" + x}
+%>
+
+<button class="btn btn-secondary" onclick="copyToClipboard('<%= @file_urls.join(' ')%>')">
+  Copy to clipboard
+</button>
