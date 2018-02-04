@@ -1,6 +1,6 @@
 {
-    "name": "file0",
-    "short_name": "file0",
+    "name": "",
+    "short_name": "",
     "icons": [
         {
             "src": "/android-chrome-192x192.png",
@@ -13,7 +13,7 @@
             "type": "image/png"
         }
     ],
-    "theme_color": "#808080",
-    "background_color": "#808080",
+    "theme_color": "#888888",
+    "background_color": "#888888",
     "display": "standalone"
 }
