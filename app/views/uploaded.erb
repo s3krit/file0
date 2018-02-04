@@ -15,6 +15,6 @@
     @file_urls.map!{|x| @host_string + "/" + x}
 %>
 
-<button class="btn btn-secondary" onclick="copyToClipboard('<%= @file_urls.join(' ')%>')">
+<button id="copytoclipboard" style="width: 143px" class="btn btn-secondary" onclick="copyToClipboard('<%= @file_urls.join(' ')%>')">
   Copy to clipboard
 </button>

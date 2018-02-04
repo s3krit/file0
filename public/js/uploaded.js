@@ -22,5 +22,8 @@ function copyToClipboard(text){
   } catch (err) {
     console.log('Oops, unable to copy');
   }
+  var copied = successful ? 'Copied!' : 'Something went wrong';
+  $("#copytoclipboard").text(copied);
+
   document.body.removeChild(textArea);
 }

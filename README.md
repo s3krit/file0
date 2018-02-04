@@ -1,3 +1,5 @@
+![file0 logo](https://raw.githubusercontent.com/s3krit/file0/master/logo.png)
+
 File0
 =====
 
