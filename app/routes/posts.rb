@@ -17,7 +17,7 @@ module File0
 
         @file_urls = []
         files.each do |file|
-          @file_urls.push File0::File.create(file[:tempfile],file[:type], session[:key])
+          @file_urls.push File0::File.create(file[:tempfile],file[:type], session[:session_id])
         end
 
         # Redirect to uploaded file if we get a url, else die?

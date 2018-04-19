@@ -13,7 +13,7 @@ module File0
       file = redis.get(path)
       return nil unless file
       parsed = JSON.parse(file)
-      if session_key == parsed['session_key']
+      if parsed['session_key'] and session_key == parsed['session_key']
         redis.del(path)
       else
         return nil
