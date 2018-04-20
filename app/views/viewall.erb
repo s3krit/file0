@@ -3,6 +3,7 @@
 <%
     File0::File.get_all.sort_by{|hsh| File0::File.ttl(hsh['filename'])}.reverse.each do |file|
 %>
+  <% next unless file['gallery'] %>
   <tr>
     <td><a href="/<%= file['filename']%>"> <%= file['filename'] %></a></td>
     <td> <%= Filesize.from(File0::File.size(file["filename"]).to_s + " B").pretty %> </td>

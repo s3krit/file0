@@ -12,7 +12,7 @@ module File0
         erb :base
       end
 
-      get '/admin' do
+      get '/gallery' do
         @pagetype = :viewall
         erb :base
       end

@@ -44,7 +44,7 @@ module File0
       data.size
     end
 
-    def self.create(file,filetype,session_key = nil)
+    def self.create(file,filetype,session_key = nil, gallery = nil)
       redis = File0::App.redis
 
       # Early returns for bad shit
@@ -65,7 +65,8 @@ module File0
         filetype: filetype,
         data: Base64.encode64(image_data).gsub("\n",""),
         session_key: session_key,
-        thumbnail: thumbnail_data || nil
+        thumbnail: thumbnail_data || nil,
+        gallery: gallery
       }
       redis.set(filename,payload.to_json)
       redis.expire(filename,File0::Config.lifetime)
