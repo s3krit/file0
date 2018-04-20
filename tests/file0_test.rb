@@ -52,21 +52,34 @@ class File0Test < Test::Unit::TestCase
     assert_equal 404,last_response.status
   end
 
-  def test_it_loads_the_admin_page_correctly
-    get '/admin'
+  def test_it_loads_the_gallery_page_correctly
+    get '/gallery'
     assert last_response.ok?
     assert last_response.body.include?('Filename')
   end
 
-  def test_admin_page_lists_files_correctly
+  def test_gallery_page_lists_approved_files_correctly
     filename = 'bbbbbbbbbbbb.jpg'
     payload= {
                filetype: 'text/plain',
-               data: Base64.encode64("Hello, world!\n").strip
+               data: Base64.encode64("Hello, world!\n").strip,
+               gallery: "on"
     }
     $redis.set(filename,payload.to_json)
-    get '/admin'
+    get '/gallery'
     assert last_response.body.include?('bbbbbbbbbbbb.jpg')
+  end
+
+  def test_gallery_page_does_list_unapproved_files
+    filename = 'abcdefgh.jpg'
+    payload= {
+               filetype: 'text/plain',
+               data: Base64.encode64("Hello, world!\n").strip,
+               gallery: nil
+    }
+    $redis.set(filename,payload.to_json)
+    get '/gallery'
+    assert (not last_response.body.include?('abcdefgh.jpg'))
   end
 
   def test_it_throws_error_on_uploading_no_file
