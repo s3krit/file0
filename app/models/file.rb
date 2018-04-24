@@ -8,12 +8,12 @@ module File0
       return JSON.parse(file)
     end
 
-    def self.delete(path,session_key = nil)
+    def self.delete(path,key = nil)
       redis = File0::App.redis
       file = redis.get(path)
       return nil unless file
       parsed = JSON.parse(file)
-      if parsed['session_key'] and session_key == parsed['session_key']
+      if parsed['key'] and key == parsed['key']
         redis.del(path)
       else
         return nil
@@ -44,7 +44,7 @@ module File0
       data.size
     end
 
-    def self.create(file,filetype,session_key = nil, gallery = nil)
+    def self.create(file,filetype, key = nil, gallery = nil)
       redis = File0::App.redis
 
       # Early returns for bad shit
@@ -64,7 +64,7 @@ module File0
       payload = {
         filetype: filetype,
         data: Base64.encode64(image_data).gsub("\n",""),
-        session_key: session_key,
+        key: key,
         thumbnail: thumbnail_data || nil,
         gallery: gallery
       }

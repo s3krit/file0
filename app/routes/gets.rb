@@ -33,7 +33,7 @@ module File0
 
       get (/\/([\w]{12}(?:|\.[\w]+))\/delete/) do
         path = params['captures'].first
-        res = File0::File.delete(path,session['session_id'])
+        res = File0::File.delete(path,cookies[:key])
         if res
           @pagetype = :deleted
           return erb :base
