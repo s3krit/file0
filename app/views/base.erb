@@ -23,20 +23,30 @@
     <script src="/js/base.js"></script>
   </head>
   <body class="" style = "">
-    <div class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <div class="container">
-        <a class="navbar-brand" href="/">File0</a>
-          <ul class="navbar-nav">
-            <li>
-              <a class="nav-link" href="/gallery">Gallery</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="https://github.com/s3krit/file0">Source</a>
-            </li>
-          </ul>
+    <div class="container">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+      <a class="navbar-brand" href="/">File0</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="/me">My files</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/gallery">Gallery</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="https://github.com/s3krit/file0">Source</a>
+          </li>
+        </ul>
       </div>
+        </div>
+    </nav>
     </div>
-    <div class="container" style="padding-top: 20px;">
+    <div class="container">
       <div class="bs-docs-section">
         <%= erb @pagetype%>
       </div>

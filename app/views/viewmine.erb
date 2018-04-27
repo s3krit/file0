@@ -1,0 +1,22 @@
+<table class="table-responsive table-bordered">
+  <tr><td>Filename</td><td>Size</td><td>Preview</td><td>TTL</td></tr>
+<%
+    File0::File.get_all.sort_by{|hsh| File0::File.ttl(hsh['filename'])}.reverse.each do |file|
+%>
+  <% next unless file['key'] == cookies['key']%>
+  <tr>
+    <td><a href="/<%= file['filename']%>"> <%= file['filename'] %></a></td>
+    <td> <%= Filesize.from(File0::File.size(file["filename"]).to_s + " B").pretty %> </td>
+    <td>
+      <% if file['thumbnail'] %>
+        <img src="data:<%=file['filetype'] + ';base64, ' + file['thumbnail']%>" />
+      <% else %>
+        No preview available.
+      <% end %>
+  </td>
+    <td> <%= Time.now + File0::File.ttl(file["filename"]) %></td>
+  </tr>
+<%
+  end
+%>
+</table>

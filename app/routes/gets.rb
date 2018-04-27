@@ -17,6 +17,10 @@ module File0
         erb :base
       end
 
+      get '/me' do
+        @pagetype = :viewmine
+        erb :base
+      end
 
       get (/\/([\w]{12}(?:|\.[\w]+))$/), :mustermann_opts => { :check_anchors => false } do
         path = params['captures'].first
