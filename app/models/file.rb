@@ -52,8 +52,6 @@ module File0
       # Identify filetype
       return nil unless is_valid_file?(file,filetype)
 
-      # If it's an application/octet-stream, let's host it as plaintext
-      filetype = 'text/plain' if filetype == 'application/octet-stream'
       image_data = file.read
       if is_image?(filetype)
         thumbnail_data = create_thumbnail(image_data)
