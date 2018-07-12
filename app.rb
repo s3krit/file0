@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # File0 - A temporary image hosting app written in Ruby
 # Copyright (C) 2017  Martin Pugh
 #
@@ -25,19 +27,19 @@ require 'sinatra/cookies'
 
 Bundler.require
 
-Dir['./app/*.rb'].each {|f| require f}
-Dir['./app/routes/*.rb'].each {|f| require f}
-Dir['./app/models/*.rb'].each {|f| require f}
-
+Dir['./app/*.rb'].each { |f| require f }
+Dir['./app/routes/*.rb'].each { |f| require f }
+Dir['./app/models/*.rb'].each { |f| require f }
 
 module File0
+  # Main app class
   class App < Sinatra::Base
     helpers Sinatra::Cookies
     set :views, ::File.dirname(__FILE__) + '/app/views'
     set :public_folder, ::File.dirname(__FILE__) + '/app/public'
 
     redis_host = ENV['REDIS_PORT_6379_TCP_ADDR'] || 'localhost'
-    set :redis, Redis.new(:host => redis_host)
+    set :redis, Redis.new(host: redis_host)
     attr_accessor :redis
 
     not_found do

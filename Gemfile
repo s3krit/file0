@@ -1,18 +1,20 @@
+# frozen_string_literal: true
+
 source 'https://rubygems.org'
+gem 'filesize'
+gem 'mini_magick'
+gem 'rack'
+gem 'redis'
 gem 'sinatra'
 gem 'sinatra-contrib'
-gem 'redis'
-gem 'rack'
 gem 'unicorn'
-gem 'mini_magick'
-gem 'filesize'
 
 group :development do
-  gem 'pry' 
+  gem 'pry'
 end
 
 group :test do
-  gem 'test-unit'
   gem 'rack-test'
   gem 'rake'
+  gem 'test-unit'
 end

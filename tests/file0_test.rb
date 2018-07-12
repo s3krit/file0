@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 ENV['RACK_ENV'] = 'test'
 
 require_relative '../app.rb'
@@ -24,32 +26,32 @@ class File0Test < Test::Unit::TestCase
 
   def test_it_throws_a_404
     get '/thispageshouldneverexist'
-    assert_equal 404,last_response.status
+    assert_equal 404, last_response.status
   end
 
   def test_it_throws_404s_on_missing_files
     get '/aaaaaaaaaaaa.jpg'
-    assert_equal 404,last_response.status
+    assert_equal 404, last_response.status
   end
 
   def test_it_retrieves_valid_files
     filename = 'bbbbbbbbbbbb.jpg'
-    payload= {
-               filetype: 'text/plain',
-               data: Base64.encode64("Hello, world!\n").strip
+    payload = {
+      filetype: 'text/plain',
+      data: Base64.encode64("Hello, world!\n").strip
     }
-    $redis.set(filename,payload.to_json)
+    $redis.set(filename, payload.to_json)
     get '/bbbbbbbbbbbb.jpg'
-    assert last_response.body.include? 'Hello, world'#
+    assert last_response.body.include? 'Hello, world'
   end
 
   def test_it_throws_404s_of_expired_files
     filename = 'bbbbbbbbbbbb.jpg'
     assert $redis.get(filename)
-    $redis.expire(filename,1)
+    $redis.expire(filename, 1)
     sleep 2
     get '/bbbbbbbbbbbb.jpg'
-    assert_equal 404,last_response.status
+    assert_equal 404, last_response.status
   end
 
   def test_it_loads_the_gallery_page_correctly
@@ -60,30 +62,30 @@ class File0Test < Test::Unit::TestCase
 
   def test_gallery_page_lists_approved_files_correctly
     filename = 'bbbbbbbbbbbb.jpg'
-    payload= {
-               filetype: 'text/plain',
-               data: Base64.encode64("Hello, world!\n").strip,
-               gallery: "on"
+    payload = {
+      filetype: 'text/plain',
+      data: Base64.encode64("Hello, world!\n").strip,
+      gallery: 'on'
     }
-    $redis.set(filename,payload.to_json)
+    $redis.set(filename, payload.to_json)
     get '/gallery'
     assert last_response.body.include?('bbbbbbbbbbbb.jpg')
   end
 
   def test_gallery_page_does_list_unapproved_files
     filename = 'abcdefgh.jpg'
-    payload= {
-               filetype: 'text/plain',
-               data: Base64.encode64("Hello, world!\n").strip,
-               gallery: nil
+    payload = {
+      filetype: 'text/plain',
+      data: Base64.encode64("Hello, world!\n").strip,
+      gallery: nil
     }
-    $redis.set(filename,payload.to_json)
+    $redis.set(filename, payload.to_json)
     get '/gallery'
-    assert (not last_response.body.include?('abcdefgh.jpg'))
+    assert !last_response.body.include?('abcdefgh.jpg')
   end
 
   def test_it_throws_error_on_uploading_no_file
     post '/upload'
-    assert_equal 400,last_response.status
+    assert_equal 400, last_response.status
   end
 end

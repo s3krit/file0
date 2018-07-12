@@ -1,7 +1,7 @@
 <table class="table-responsive table-bordered">
   <tr><td>Filename</td><td>Size</td><td>Preview</td><td>TTL</td></tr>
 <%
-    File0::File.get_all.sort_by{|hsh| File0::File.ttl(hsh['filename'])}.reverse.each do |file|
+    File0::File.all.sort_by{|hsh| File0::File.ttl(hsh['filename'])}.reverse.each do |file|
 %>
   <% next unless file['gallery'] %>
   <tr>
