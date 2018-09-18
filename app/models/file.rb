@@ -80,42 +80,7 @@ module File0
 
     def self.rotate(image_data)
       image = MiniMagick::Image.read(image_data)
-      return image.to_blob unless image.exif
-      case image.exif['Orientation']
-      when '1'
-        return image.to_blob
-      when '2'
-        image.combine_options do |b|
-          b.flip
-          b.rotate(180)
-        end
-        return image.to_blob
-      when '3'
-        image.rotate(180)
-        return image.to_blob
-      when '4'
-        image.flip
-        return image.to_blob
-      when '5'
-        image.combine_options do |b|
-          b.flip
-          b.rotate(90)
-        end
-        return image.to_blob
-      when '6'
-        image.rotate(90)
-        return image.to_blob
-      when '7'
-        image.combine_options do |b|
-          b.flip
-          b.rotate(-90)
-        end
-        return image.to_blob
-      when '8'
-        image.rotate(-90)
-        return image.to_blob
-      end
-      image.to_blob
+      image.auto_orient.to_blob
     end
 
     def self.strip(image_data)
