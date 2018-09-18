@@ -54,6 +54,7 @@ module File0
       image_data = file.read
       if image?(filetype)
         thumbnail_data = create_thumbnail(image_data)
+        image_data = rotate(image_data)
         image_data = strip(image_data)
       end
       # Store in redis as json {'type':'file/whatever', 'data':'base64'}
@@ -73,7 +74,48 @@ module File0
     def self.create_thumbnail(image_data, dimensions = '200x200')
       image = MiniMagick::Image.read(image_data)
       image.resize(dimensions)
-      Base64.encode64(image.to_blob).delete("\n")
+      image_data = rotate(image.to_blob)
+      Base64.encode64(image_data).delete("\n")
+    end
+
+    def self.rotate(image_data)
+      image = MiniMagick::Image.read(image_data)
+      return image.to_blob unless image.exif
+      case image.exif['Orientation']
+      when '1'
+        return image.to_blob
+      when '2'
+        image.combine_options do |b|
+          b.flip
+          b.rotate(180)
+        end
+        return image.to_blob
+      when '3'
+        image.rotate(180)
+        return image.to_blob
+      when '4'
+        image.flip
+        return image.to_blob
+      when '5'
+        image.combine_options do |b|
+          b.flip
+          b.rotate(90)
+        end
+        return image.to_blob
+      when '6'
+        image.rotate(90)
+        return image.to_blob
+      when '7'
+        image.combine_options do |b|
+          b.flip
+          b.rotate(-90)
+        end
+        return image.to_blob
+      when '8'
+        image.rotate(-90)
+        return image.to_blob
+      end
+      image.to_blob
     end
 
     def self.strip(image_data)
