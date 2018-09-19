@@ -7,6 +7,7 @@ module File0
       redis = File0::App.redis
       file = redis.get(path)
       return nil unless file
+
       JSON.parse(file)
     end
 
@@ -14,8 +15,10 @@ module File0
       redis = File0::App.redis
       file = redis.get(path)
       return nil unless file
+
       parsed = JSON.parse(file)
       return nil unless parsed['key'] && (key == parsed['key'])
+
       redis.del(path)
       true
     end
@@ -95,7 +98,9 @@ module File0
       extension = ::File.extname(file.path).downcase
 
       return false if bad_extensions.include?(extension)
+
       return false if bad_mimes.include?(filetype)
+
       true
     end
 
