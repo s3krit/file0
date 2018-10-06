@@ -112,5 +112,14 @@ module File0
       ]
       whitelist.include?(filetype)
     end
+
+    def self.audio?(filetype)
+      whitelist = [
+        'audio/mpeg3',
+        'audio/mpeg',
+        'audio/ogg'
+      ]
+      whitelist.include?(filetype)
+    end
   end
 end

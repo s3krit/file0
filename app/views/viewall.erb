@@ -10,8 +10,11 @@
     <td>
       <% if file['thumbnail'] %>
         <img src="data:<%=file['filetype'] + ';base64, ' + file['thumbnail']%>" />
-      <% else %>
-        No preview available.
+      <% end %>
+      <% if File0::File.audio?(file['filetype']) %>
+        <audio controls>
+          <source src="<%= file['filename'] %>" type="<%= file['filetype'] %>" />
+        </audio>
       <% end %>
   </td>
     <td> <%= Time.now + File0::File.ttl(file["filename"]) %></td>
