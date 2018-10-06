@@ -117,7 +117,8 @@ module File0
       whitelist = [
         'audio/mpeg3',
         'audio/mpeg',
-        'audio/ogg'
+        'audio/ogg',
+        'video/ogg'
       ]
       whitelist.include?(filetype)
     end
