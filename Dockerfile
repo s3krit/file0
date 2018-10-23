@@ -7,11 +7,9 @@ RUN apt-get -y update; apt-get install -y imagemagick
 RUN mkdir /code
 COPY . /code/
 
-COPY Gemfile* /tmp/
-WORKDIR /tmp
-RUN bundle install
-
+COPY Gemfile* /code/
 WORKDIR /code
+RUN bundle install
 
 EXPOSE 9292
 CMD rackup
