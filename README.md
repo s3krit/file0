@@ -65,4 +65,6 @@ Notes
 `TempFile` objects in Ruby get written to `/tmp`. In order to guarantee that
 these files don't hit the disk, you'll need to make sure it's a proper `tmpfs`
 (and probably disable swapping) or have it mounted as a RAM disk. As for Docker,
-I've no idea how it handles `tmpfs` by default.
+`docker-compose.yml` will make sure `/tmp` is a proper `tmpfs`. If you invoke
+Docker on your own without `docker-compose`, you will have to add `--tmpfs /tmp`
+to your Docker run command.
