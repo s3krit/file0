@@ -10,6 +10,8 @@ services:
       - redis
     depends_on:
       - redis
+    tmpfs:
+      - /tmp
   redis:
     image: redis
     command: redis-server /etc/redis/redis.conf
