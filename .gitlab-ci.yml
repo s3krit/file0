@@ -1,0 +1,39 @@
+image: docker:latest
+
+services:
+  - docker:dind
+
+stages:
+  - build
+  - test
+  - release
+
+variables:
+  BUILD_IMAGE_TAG: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
+  RELEASE_IMAGE_TAG: $CI_REGISTRY_IMAGE:latest
+
+before_script:
+  - docker network create --driver bridge file0-net
+  - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
+
+build:
+  stage: build
+  script:
+    - docker build -t $BUILD_IMAGE_TAG .
+    - docker push $BUILD_IMAGE_TAG
+
+test:
+  stage: test
+  script:
+    - docker run -d --name redis --network file0-net redis:latest
+    - docker run --network file0-net -e 'REDIS_PORT_6379_TCP_ADDR=redis' $BUILD_IMAGE_TAG bundle exec rake
+
+release:
+  stage: release
+  script:
+    - docker pull $BUILD_IMAGE_TAG
+    - docker tag $BUILD_IMAGE_TAG $RELEASE_IMAGE_TAG
+    - docker push $RELEASE_IMAGE_TAG
+  only:
+    - master
+

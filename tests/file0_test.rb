@@ -10,7 +10,8 @@ require 'base64'
 
 class File0Test < Test::Unit::TestCase
   include Rack::Test::Methods
-  $redis = Redis.new
+  redis_host = ENV['REDIS_PORT_6379_TCP_ADDR'] || 'localhost'
+  $redis = Redis.new(host: redis_host)
 
   def app
     File0::App.new
