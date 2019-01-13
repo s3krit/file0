@@ -39,9 +39,10 @@ module File0
     set :public_folder, ::File.dirname(__FILE__) + '/app/public'
 
     redis_host = ENV['REDIS_PORT_6379_TCP_ADDR'] || 'localhost'
+    redis = Redis.new(host: redis_host)
     # Probably not the best thing to use 2 connections just for namespacing...
-    set :file_redis, Redis::Namespace.new(:file, host: redis_host)
-    set :album_redis, Redis::Namespace.new(:album, host: redis_host)
+    set :file_redis, Redis::Namespace.new(:file, redis: redis)
+    set :album_redis, Redis::Namespace.new(:album, redis: redis)
     attr_accessor :file_redis
     attr_accessor :album_redis
 
