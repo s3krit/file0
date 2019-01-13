@@ -4,15 +4,21 @@
 <% else %>
   <p> Take your files, mate. They won't be here forever</p>
 <% end %>
-
+<% if @album_id %>
+  <p>Album:
+    <a href="/album/<%= @album_id %>">
+      <%= @host_string + '/album/' + @album_id%>
+    </a>
+  </p>
+<% end %>
 <ul>
   <% @file_urls.each do |url| %>
-    <li><a href="/<%= url%>"><%= @host_string + "/" + url%></a> </li>
+    <li><a href="/<%= url%>"><%= @host_string + '/' + url%></a> </li>
   <% end %>
 </ul>
 
 <% 
-    @file_urls.map!{|x| @host_string + "/" + x}
+    @file_urls.map!{|x| @host_string + '/' + x}
 %>
 
 <button id="copytoclipboard" style="width: 143px" class="btn btn-secondary" onclick="copyToClipboard('<%= @file_urls.join(' ')%>')">

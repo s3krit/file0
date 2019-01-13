@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative './base.rb'
+require 'pry'
 module File0
   module Routes
     class Gets < Base
@@ -24,6 +25,7 @@ module File0
         erb :base
       end
 
+      # File endpoints
       get %r(\/([\w]{12}(?:|\.[\w]+))$), mustermann_opts: {
         check_anchors: false
       } do
@@ -49,6 +51,22 @@ module File0
           @pagetype = :forbidden
         end
         return erb :base
+      end
+
+      # Album endpoints
+      get %r(\/album\/([\w]{12})$), mustermann_opts: {
+        check_anchors: false
+      } do
+        path = params['captures'].first
+        @album = File0::Album.get(path)
+        unless @album
+          status 404
+          @lifetime = File0::Config.lifetime # Gross...
+          @pagetype = :fourohfour
+          return erb :base
+        end
+        @pagetype = :viewalbum
+        erb :base
       end
     end
   end

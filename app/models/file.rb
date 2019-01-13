@@ -4,7 +4,7 @@ require 'pry'
 module File0
   class File
     def self.get(path)
-      redis = File0::App.redis
+      redis = File0::App.file_redis
       file = redis.get(path)
       return nil unless file
 
@@ -12,7 +12,7 @@ module File0
     end
 
     def self.delete(path, key = nil)
-      redis = File0::App.redis
+      redis = File0::App.file_redis
       file = redis.get(path)
       return nil unless file
 
@@ -24,12 +24,12 @@ module File0
     end
 
     def self.ttl(path)
-      redis = File0::App.redis
+      redis = File0::App.file_redis
       redis.ttl(path)
     end
 
     def self.all
-      redis = File0::App.redis
+      redis = File0::App.file_redis
       file_list = redis.keys
       files = []
       file_list.each do |filename|
@@ -47,7 +47,7 @@ module File0
     end
 
     def self.create(file, filetype, key = nil, gallery = nil)
-      redis = File0::App.redis
+      redis = File0::App.file_redis
 
       # Early returns for bad shit
       return nil if file.size > File0::Config.max_filesize
