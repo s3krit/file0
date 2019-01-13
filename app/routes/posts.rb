@@ -30,6 +30,8 @@ module File0
           )
         end
 
+        @album_id = File0::Album.create(@file_urls) if files.size > 1
+
         # Redirect to uploaded file if we get a url, else die?
         if @file_urls.empty?
           status 500
