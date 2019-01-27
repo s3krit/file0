@@ -1,7 +1,7 @@
 <table class="table-responsive table-bordered">
   <tr><td>Filename</td><td>Size</td><td>Preview</td><td>TTL</td></tr>
 <%
-    @album['files'].each do |filename|
+    @album['files'].each.reverse do |filename|
 %>
   <% file = File0::File.get(filename) %>
   <tr>
@@ -9,7 +9,9 @@
     <td> <%= Filesize.from(File0::File.size(filename).to_s + " B").pretty %> </td>
     <td>
       <% if file['thumbnail'] %>
-        <img src="data:<%=file['filetype'] + ';base64, ' + file['thumbnail']%>" />
+        <a href="/<%=filename %>">
+          <img src="data:<%=file['filetype'] + ';base64, ' + file['thumbnail']%>" />
+        </a>
       <% end %>
       <% if File0::File.audio?(file['filetype']) %>
         <audio controls>
