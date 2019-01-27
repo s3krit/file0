@@ -9,7 +9,7 @@
     <td> <%= Filesize.from(File0::File.size(file["filename"]).to_s + " B").pretty %> </td>
     <td>
       <% if file['thumbnail'] %>
-        <a href="/<%=filename %>">
+        <a href="/<%=file['filename'] %>">
           <img src="data:<%=file['filetype'] + ';base64, ' + file['thumbnail']%>" />
         </a>
       <% end %>
