@@ -1,7 +1,7 @@
 <table class="table-responsive table-bordered">
   <tr><td>Filename</td><td>Size</td><td>Preview</td><td>TTL</td></tr>
 <%
-    @album['files'].each.reverse do |filename|
+    @album['files'].reverse.each do |filename|
 %>
   <% file = File0::File.get(filename) %>
   <tr>
