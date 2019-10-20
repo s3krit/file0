@@ -46,7 +46,7 @@ module File0
       data.size
     end
 
-    def self.create(file, filetype, key = nil, gallery = nil)
+    def self.create(orig_filename, file, filetype, key = nil, gallery = nil)
       redis = File0::App.file_redis
 
       # Early returns for bad shit
@@ -61,7 +61,13 @@ module File0
         image_data = strip(image_data)
       end
       # Store in redis as json {'type':'file/whatever', 'data':'base64'}
-      filename = SecureRandom.hex(6) + ::File.extname(file.path)
+      basename = SecureRandom.hex(6)
+      # Special case for .tar.gz
+      if ::File.basename(orig_filename) =~ /.*tar\.gz$/
+        filename = basename + '.tar.gz'
+      else
+      filename = basename + ::File.extname(file.path)
+      end
       payload = {
         filetype: filetype,
         data: Base64.encode64(image_data).delete("\n"),

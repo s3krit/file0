@@ -26,7 +26,7 @@ module File0
       end
 
       # File endpoints
-      get %r(\/([\w]{12}(?:|\.[\w]+))$), mustermann_opts: {
+      get %r(\/([\w]{12}(?:|[\.[\w]+]+))$), mustermann_opts: {
         check_anchors: false
       } do
         path = params['captures'].first

@@ -23,6 +23,7 @@ module File0
         @file_urls = []
         files.each do |file|
           @file_urls.push File0::File.create(
+            file[:filename],
             file[:tempfile],
             file[:type],
             cookies[:key],
