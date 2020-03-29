@@ -63,11 +63,11 @@ module File0
       # Store in redis as json {'type':'file/whatever', 'data':'base64'}
       basename = SecureRandom.hex(6)
       # Special case for .tar.gz
-      if ::File.basename(orig_filename) =~ /.*tar\.gz$/
-        filename = basename + '.tar.gz'
-      else
-      filename = basename + ::File.extname(file.path)
-      end
+      filename = if ::File.basename(orig_filename) =~ /.*tar\.gz$/
+                   basename + '.tar.gz'
+                 else
+                   basename + ::File.extname(file.path)
+                 end
       payload = {
         filetype: filetype,
         data: Base64.encode64(image_data).delete("\n"),
@@ -111,21 +111,12 @@ module File0
     end
 
     def self.image?(filetype)
-      whitelist = [
-        'image/jpeg',
-        'image/png',
-        'image/gif'
-      ]
+      whitelist = %w[image/jpeg image/png image/gif]
       whitelist.include?(filetype)
     end
 
     def self.audio?(filetype)
-      whitelist = [
-        'audio/mpeg3',
-        'audio/mpeg',
-        'audio/ogg',
-        'video/ogg'
-      ]
+      whitelist = %w[audio/mpeg3 audio/mpeg audio/ogg video/ogg]
       whitelist.include?(filetype)
     end
   end
