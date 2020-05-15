@@ -96,12 +96,9 @@ module File0
       better
       bewitched
       big
-      big-hearted
       biodegradable
-      bite-sized
       bitter
       black
-      black-and-white
       bland
       blank
       blaring
@@ -164,7 +161,6 @@ module File0
       classic
       clean
       clear
-      clear-cut
       clever
       close
       closed
@@ -299,7 +295,6 @@ module File0
       early
       earnest
       easy
-      easy-going
       ecstatic
       edible
       educated
@@ -346,8 +341,6 @@ module File0
       expensive
       experienced
       expert
-      extra-large
-      extra-small
       extraneous
       extroverted
       fabulous
@@ -361,8 +354,6 @@ module File0
       fancy
       fantastic
       far
-      far-flung
-      far-off
       faraway
       fast
       fat
@@ -459,7 +450,6 @@ module File0
       glum
       golden
       good
-      good-natured
       gorgeous
       graceful
       gracious
@@ -496,9 +486,7 @@ module File0
       handsome
       handy
       happy
-      happy-go-lucky
       hard
-      hard-to-find
       harmful
       harmless
       harmonious
@@ -517,7 +505,6 @@ module File0
       hidden
       hideous
       high
-      high-level
       hilarious
       hoarse
       hollow
@@ -547,8 +534,6 @@ module File0
       idolized
       ignorant
       ill
-      ill-fated
-      ill-informed
       illegal
       illiterate
       illustrious
@@ -607,7 +592,6 @@ module File0
       itchy
       jaded
       jagged
-      jam-packed
       jaunty
       jealous
       jittery
@@ -670,7 +654,6 @@ module File0
       lone
       lonely
       long
-      long-term
       loose
       lopsided
       lost
@@ -687,7 +670,6 @@ module File0
       lustrous
       luxurious
       mad
-      made-up
       magnificent
       majestic
       major
@@ -790,7 +772,6 @@ module File0
       official
       oily
       old
-      old-fashioned
       only
       open
       optimal
@@ -901,7 +882,6 @@ module File0
       querulous
       questionable
       quick
-      quick-witted
       quiet
       quintessential
       quirky
@@ -977,11 +957,8 @@ module File0
       scratchy
       scrawny
       second
-      second-hand
       secondary
       secret
-      self-assured
-      self-reliant
       selfish
       sentimental
       separate
@@ -1003,7 +980,6 @@ module File0
       shocking
       shoddy
       short
-      short-term
       showy
       shrill
       shy
@@ -1108,7 +1084,6 @@ module File0
       superficial
       superior
       supportive
-      sure-footed
       surprised
       suspicious
       svelte
@@ -1280,14 +1255,6 @@ module File0
       weighty
       weird
       welcome
-      well-documented
-      well-groomed
-      well-informed
-      well-lit
-      well-made
-      well-off
-      well-to-do
-      well-worn
       wet
       which
       whimsical
@@ -1298,7 +1265,6 @@ module File0
       whopping
       wicked
       wide
-      wide-eyed
       wiggly
       wild
       willing
