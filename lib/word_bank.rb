@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module File0
-  class WordBank
+  class WordBank # rubocop:disable Metrics/ClassLength
     ADJECTIVES = %i[
       abandoned
       able
@@ -356,7 +356,6 @@ module File0
       fair
       faithful
       fake
-      false
       familiar
       famous
       fancy
@@ -1171,7 +1170,6 @@ module File0
       trim
       trivial
       troubled
-      true
       trusting
       trustworthy
       trusty
@@ -1342,7 +1340,7 @@ module File0
       zealous
       zesty
       zigzag
-    ]
+    ].freeze
 
     NOUNS = %i[
       ability
@@ -2862,6 +2860,6 @@ module File0
       young
       youth
       zone
-    ]
+    ].freeze
   end
 end

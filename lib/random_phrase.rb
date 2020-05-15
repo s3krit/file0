@@ -8,7 +8,7 @@ module File0
     DEFAULT_OPTIONS = {
       adjectives: 2,
       nouns: 1
-    }
+    }.freeze
 
     def self.generate(options = {})
       options.merge!(DEFAULT_OPTIONS)
