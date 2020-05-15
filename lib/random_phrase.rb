@@ -7,7 +7,7 @@ module File0
   class RandomPhrase
     DEFAULT_OPTIONS = {
       adjectives: 2,
-      nouns: 1
+      nouns: 2
     }.freeze
 
     def self.generate(options = {})
