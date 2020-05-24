@@ -44,19 +44,13 @@ module File0
                          request.host_with_port
                        end
 
-        if request.referer == ""
-          @host_string = if request.secure?
-                           'https://' + @host_string
-                         else
-                           'http://' + @host_string
-                         end
-        else
-          @host_string = if request.referrer =~ /^https.*/
-                           'https://' + @host_string
-                         else
-                           'http://' + @host_string
-                         end
-        end
+        @host_string = if request.referer == '' && request.secure?
+                         'https://' + @host_string
+                       elsif request.referrer =~ /^https.*/
+                         'https://' + @host_string
+                       else
+                         'http://' + @host_string
+                       end
 
         @pagetype = :uploaded
         return erb :base
