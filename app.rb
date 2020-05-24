@@ -27,9 +27,9 @@ require 'sinatra/cookies'
 
 Bundler.require
 
-Dir['./app/*.rb'].each { |f| require f }
-Dir['./app/routes/*.rb'].each { |f| require f }
-Dir['./app/models/*.rb'].each { |f| require f }
+Dir['./app/*.rb'].sort.each { |f| require f }
+Dir['./app/routes/*.rb'].sort.each { |f| require f }
+Dir['./app/models/*.rb'].sort.each { |f| require f }
 
 module File0
   # Main app class
