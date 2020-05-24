@@ -1,4 +1,4 @@
-FROM ruby:2.4.1
+FROM ruby:2.7.1
 ENV RACK_ENV production
 
 RUN apt-get -y update; apt-get install -y imagemagick
