@@ -12,6 +12,10 @@ services:
       - redis
     tmpfs:
       - /tmp
+    environment:
+      - FILE0_FILE_LIFETIME=86400
+      - FILE0_MAX_FILESIZE=1000_000_000
+      - FILE0_REDIS_URL=redis
   redis:
     image: redis
     command: redis-server /etc/redis/redis.conf

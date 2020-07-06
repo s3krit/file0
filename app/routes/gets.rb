@@ -41,7 +41,9 @@ module File0
         return Base64.decode64(file['data'])
       end
 
-      get %r(\/([\w]{12}(?:|\.[\w]+))\/delete) do
+      post %r(\/([\w]{12}(?:|[\.[\w]+]+))/delete$), mustermann_opts: {
+        check_anchors: false
+      } do
         path = params['captures'].first
         res = File0::File.delete(path, cookies[:key])
         if res
