@@ -1,14 +1,15 @@
 <form class="form-horizontal" action="/upload" method="post" enctype="multipart/form-data">
   <div class="form-group">
-  <label class="btn btn-default btn-file">
-    <input id="fileInput" type="file" name="files[]" value="Upload" multiple />
-  </label>
+    <p>Select a file or paste an image to upload.</p>
+    <label class="btn btn-default btn-file">
+      <input id="fileInput" type="file" name="files[]" value="Upload" multiple />
+    </label>
   </div>
   <div class="form-check">
-  <input class="form-check-input" type="checkbox" name="gallery" id="gallery">
-  <label class="form-check-label" for="gallery">
-    Post to public <a href="/gallery">gallery</a>?
-  </label>
+    <input class="form-check-input" type="checkbox" name="gallery" id="gallery">
+    <label class="form-check-label" for="gallery">
+      Post to public <a href="/gallery">gallery</a>?
+    </label>
   </div>
   <div style="margin-top: 20px" class="form-group">
     <button class="btn btn-secondary btn-spinz" style="width: 142px;" type="submit" value="Upload"><i class="spinz fa"></i>Upload</button>
