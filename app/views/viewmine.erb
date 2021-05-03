@@ -19,7 +19,8 @@
         </audio>
       <% end %>
   </td>
-    <td> <%= Time.now + File0::File.ttl(file["filename"]) %></td>
+  <td> <%= Time.now + File0::File.ttl(file["filename"]) %></td>
+  <td><form action="/<%= file['filename']%>/delete" method="post"><button>Delete</button></form></td>
   </tr>
 <%
   end

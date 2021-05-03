@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # File0 - A temporary image hosting app written in Ruby
-# Copyright (C) 2017  Martin Pugh
+# Copyright (C) 2017-2020  Martin Pugh
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -38,7 +38,7 @@ module File0
     set :views, ::File.dirname(__FILE__) + '/app/views'
     set :public_folder, ::File.dirname(__FILE__) + '/app/public'
 
-    redis_host = ENV['REDIS_PORT_6379_TCP_ADDR'] || 'localhost'
+    redis_host = ENV['FILE0_REDIS_URL'] || 'localhost'
     redis = Redis.new(host: redis_host)
     # Probably not the best thing to use 2 connections just for namespacing...
     set :file_redis, Redis::Namespace.new(:file, redis: redis)
