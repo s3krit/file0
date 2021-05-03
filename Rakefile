@@ -7,4 +7,5 @@ task default: %w[test rubocop]
 
 task :test do
   ruby 'tests/file0_test.rb'
+  ruby 'lib/test/*.rb'
 end

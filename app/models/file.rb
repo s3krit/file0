@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
-require 'pry'
+require_relative '../../lib/random_phrase'
+
 module File0
   class File
     def self.get(path)
@@ -61,7 +62,11 @@ module File0
         image_data = strip(image_data)
       end
       # Store in redis as json {'type':'file/whatever', 'data':'base64'}
-      basename = SecureRandom.hex(6)
+      basename = if File0::Config.human_readable_urls
+                   RandomPhrase.generate
+                 else
+                   SecureRandom.hex(6)
+                 end
       # Special case for .tar.gz
       filename = if ::File.basename(orig_filename) =~ /.*tar\.gz$/
                    basename + '.tar.gz'
